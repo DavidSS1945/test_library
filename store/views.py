@@ -7,6 +7,11 @@ from rest_framework import status
 
 class BookList(APIView):
 
+    def get(self, request, format=None):
+        books = models.Book.objects.all()
+        serializer = serializers.BookSerializer(books, many=True)
+        return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = serializers.BookSerializer(data=request.data)
         if serializer.is_valid():
