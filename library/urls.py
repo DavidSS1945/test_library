@@ -20,5 +20,8 @@ from store import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/',views.BookList.as_view(), name="book.list")
+    path('books/',views.BookList.as_view(), name="book.list"),
+    path('edithorial/',views.EdithorialList.as_view(), name="edithorial.list")
+
+    
 ]
