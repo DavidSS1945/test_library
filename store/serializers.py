@@ -5,7 +5,7 @@ class BookSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True, max_length=256)
     author = serializers.CharField(required=True, max_length=256)
-    edithor1al = serializers.RelatedField(source='Edithorial', read_only=True)
+    edithorial_id = serializers.IntegerField()
     
     def create(self, validated_data):
         instance = models.Book(**validated_data)
