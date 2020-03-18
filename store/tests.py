@@ -34,6 +34,21 @@ class BookListTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
+class BookDetailTests(APITestCase):
+
+    def test_get_book(self):
+        edithorial = models.Edithorial.objects.create(name="Pachamama")
+        book = models.Book.objects.create(name="Rda", author="Este",  edithorial_id = edithorial.id)
+
+        url = reverse('detail', kwargs={'pk': book.id} )
+        response = self.client.get(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], book.id)
+        self.assertEqual(response.data['name'], book.name)
+
+        
+
 class EdithorialListTests(APITestCase):
     
     def test_create_edithorial(self):
