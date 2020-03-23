@@ -34,6 +34,11 @@ class BookDetail(APIView):
         serializer = serializers.BookSerializer(book)
         return Response(serializer.data)
 
+    def delete(self, request, pk, format=None):
+        book = self.get_object(pk)
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class EdithorialList(APIView):
     

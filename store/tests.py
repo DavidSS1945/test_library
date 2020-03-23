@@ -46,8 +46,20 @@ class BookDetailTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], book.id)
         self.assertEqual(response.data['name'], book.name)
+    
+    def test_delete_book(self):
+        edithorial = models.Edithorial.objects.create(name="RS21")
+        book = models.Book.objects.create(name="Charco", author="Sur", edithorial_id = edithorial.id)
 
-        
+        url = reverse('detail', kwargs={'pk': book.id} )
+        response = self.client.delete(url, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
 
 class EdithorialListTests(APITestCase):
     
